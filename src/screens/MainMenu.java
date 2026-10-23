@@ -14,7 +14,7 @@ public class MainMenu {
 	private Pane layout;
 	
 	private Label appName; 
-	private Label pageName;
+	private Label pageDesc;
 	private Label startHere;
 	
 	private Line separator;
@@ -47,15 +47,15 @@ public class MainMenu {
 		appName.setAlignment(Pos.CENTER); //center within that width (easier than coordinates)
 		
 		//Screen Name Label
-		pageName = new Label("Home");
+		pageDesc = new Label("Home");
 		
 		//Styling
-		pageName.setFont(new Font(25));
-		pageName.setStyle("-fx-text-fill: DARKSEAGREEN");
-		pageName.setPrefWidth(1200); //set screenName box to width of whole window
-		pageName.setAlignment(Pos.TOP_RIGHT); //move to top right of that width
-		pageName.setLayoutX(-40); //make incremental adjustments
-		pageName.setLayoutY(20);
+		pageDesc.setFont(new Font(25));
+		pageDesc.setStyle("-fx-text-fill: DARKSEAGREEN");
+		pageDesc.setPrefWidth(1200); //set screenName box to width of whole window
+		pageDesc.setAlignment(Pos.TOP_RIGHT); //move to top right of that width
+		pageDesc.setLayoutX(-40); //make incremental adjustments
+		pageDesc.setLayoutY(20);
 		
 		//Separation line
 		separator = new Line(30,110,1170,110); //(x start, y start, x end, y end)
@@ -151,16 +151,22 @@ public class MainMenu {
 									"-fx-background-radius: 15px");
 		
 		//Add all elements to layout
-		layout.getChildren().addAll(appName, pageName, startHere, addIncome, setSavings, addTransaction,
+		layout.getChildren().addAll(appName, pageDesc, startHere, addIncome, setSavings, addTransaction,
 									viewIncome, viewTransaction, viewSavings,financialSummary,
 									spendingByCategory, separator);
 		
-	}
 	
+		
+	}
 	//method to make layout accessible to application class
 	public Pane getLayout() {
 		return layout;
 		
+	}
+	
+	//makes add income accessible to application class for screen switching
+	public Button getAddIncome() {
+		return addIncome;
 	}
 
 }
