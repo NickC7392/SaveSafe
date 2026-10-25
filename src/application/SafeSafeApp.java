@@ -1,11 +1,12 @@
 package application;
 
+import home_screen.MainMenu;
+import income_screens.AddIncome;
+import income_screens.ViewIncome;
 import javafx.application.Application;
-
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import screens.MainMenu;
-import screens.AddIncome;
+
 
 public class SafeSafeApp extends Application{
 	
@@ -14,6 +15,7 @@ public class SafeSafeApp extends Application{
 		//creates main menu object from MainMenu class
 		MainMenu main = new MainMenu();
 		AddIncome addIncome = new AddIncome();
+		ViewIncome viewIncome = new ViewIncome();
 		
 		
 		//uses getLayout method from MainMenu class to return its pane
@@ -26,6 +28,15 @@ public class SafeSafeApp extends Application{
 		
 		//connects MainMenu screen to cancel button in AddIncome
 		addIncome.getCancelButton().setOnAction(e -> {
+			scene.setRoot(main.getLayout());
+		});
+		
+		//connects ViewIncome screen to View Income button in MainMenu
+		main.getViewIncome().setOnAction(e -> {
+			scene.setRoot(viewIncome.getLayout());
+		});
+		
+		viewIncome.getReturnHome().setOnAction(e -> {
 			scene.setRoot(main.getLayout());
 		});
 		

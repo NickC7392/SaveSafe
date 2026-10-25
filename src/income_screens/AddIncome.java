@@ -1,4 +1,4 @@
-package screens;
+package income_screens;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,7 +15,7 @@ public class AddIncome {
 	
 	private Label pageTitle;
 	private Label pageName;
-	private Label pageDesc;
+	private Label pageInstruction;
 	private Label incomeAmount;
 	private Label dateReceived;
 	
@@ -55,23 +55,23 @@ public class AddIncome {
 		pageName.setPrefWidth(1200); //set screenName box to width of whole window
 		pageName.setAlignment(Pos.TOP_RIGHT); //move to top right of that width
 		pageName.setLayoutX(-40); //make incremental adjustments
-		pageName.setLayoutY(20);
+		pageName.setLayoutY(20); // ^^
 		
 		
 		//Separation line
 		separator = new Line(30,110,1170,110); //(x start, y start, x end, y end)
 		
 		//Styling
-		separator.setStyle("-fx-stroke: WHITE");
+		separator.setStyle("-fx-stroke: WHITE"); //makes line white
 		
 		//Enter income details label
-		pageDesc = new Label("Enter Income Details");
+		pageInstruction = new Label("Enter Income Details");
 		
 		//Styling
-		pageDesc.setLayoutY(160); // y coordinate
-		pageDesc.setPrefWidth(1200); // set width to whole screen
-		pageDesc.setAlignment(Pos.CENTER); //align within whole screens width
-		pageDesc.setStyle("-fx-font-size: 35px;" + 
+		pageInstruction.setLayoutY(160); // y coordinate
+		pageInstruction.setPrefWidth(1200); // set width to whole screen
+		pageInstruction.setAlignment(Pos.CENTER); //align within whole screens width
+		pageInstruction.setStyle("-fx-font-size: 35px;" + 
 						  "-fx-text-fill: WHITE;" + 
 						  "-fx-font-weight: BOLD;");
 		
@@ -91,7 +91,7 @@ public class AddIncome {
 		
 		//Styling
 		incomeField.setFocusTraversable(false); //make it so text field is not selected by default
-		incomeField.setAlignment(Pos.CENTER); //set text to center to TextField
+		incomeField.setAlignment(Pos.CENTER); //set text to center of TextField
 		incomeField.setPrefSize(400, 75); //size of text field
 		incomeField.setLayoutX(400); //x coordinate
 		incomeField.setLayoutY(300); //y coordinate
@@ -102,8 +102,8 @@ public class AddIncome {
 		dateReceived = new Label("Date Received:");
 		
 		//Styling
-		dateReceived.setLayoutX(400);
-		dateReceived.setLayoutY(435);
+		dateReceived.setLayoutX(400); //x coordinate
+		dateReceived.setLayoutY(435); //y coordinate
 		dateReceived.setStyle("-fx-font-size: 25px;" +
 							  "-fx-text-fill: DARKSEAGREEN;");
 		
@@ -124,9 +124,9 @@ public class AddIncome {
 		saveIncome = new Button("Save Income");
 		
 		//Styling
-		saveIncome.setPrefSize(185, 60);
-		saveIncome.setLayoutX(400);
-		saveIncome.setLayoutY(600);
+		saveIncome.setPrefSize(185, 60); //size of saveIncome button
+		saveIncome.setLayoutX(400); //x coordinate
+		saveIncome.setLayoutY(600); //y coordinate
 		saveIncome.setStyle("-fx-font-size: 25px;" +
 							"-fx-font-weight: BOLD;" +
 							"-fx-text-fill: #123D2A;" +
@@ -137,9 +137,9 @@ public class AddIncome {
 		cancel = new Button("Cancel");
 		
 		//Styling
-		cancel.setPrefSize(185, 60);
-		cancel.setLayoutX(615);
-		cancel.setLayoutY(600);
+		cancel.setPrefSize(185, 60); //size of cancel button
+		cancel.setLayoutX(615); //x coordinate
+		cancel.setLayoutY(600); //y coordinate
 		cancel.setStyle("-fx-font-size: 25px;" +
 						"-fx-font-weight: BOLD;" +
 						"-fx-text-fill: WHITE;" +
@@ -153,7 +153,7 @@ public class AddIncome {
 		
 							  
 		
-		layout.getChildren().addAll(pageTitle, separator, incomeField, pageName, cancel, saveIncome, pageDesc
+		layout.getChildren().addAll(pageTitle, separator, incomeField, pageName, cancel, saveIncome, pageInstruction
 									, incomeAmount, incomeDate, dateReceived);
 		
 	}

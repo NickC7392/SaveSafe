@@ -1,4 +1,4 @@
-package screens;
+package home_screen;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -167,6 +167,10 @@ public class MainMenu {
 	//makes add income accessible to application class for screen switching
 	public Button getAddIncome() {
 		return addIncome;
+	}
+	
+	public Button getViewIncome() {
+		return viewIncome;
 	}
 
 }
