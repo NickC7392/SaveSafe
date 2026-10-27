@@ -46,7 +46,7 @@ public class AddIncome {
 		pageTitle.setAlignment(Pos.CENTER); //align within whole screens width
 		pageTitle.setStyle("-fx-text-fill: GOLDENROD; -fx-font-weight: BOLD;");
 		
-		//Name for page label
+		//page name label (top right)
 		pageName = new Label("Income");
 		
 		//Styling
@@ -72,8 +72,8 @@ public class AddIncome {
 		pageInstruction.setPrefWidth(1200); // set width to whole screen
 		pageInstruction.setAlignment(Pos.CENTER); //align within whole screens width
 		pageInstruction.setStyle("-fx-font-size: 35px;" + 
-						  "-fx-text-fill: WHITE;" + 
-						  "-fx-font-weight: BOLD;");
+								 "-fx-text-fill: WHITE;" + 
+								 "-fx-font-weight: BOLD;");
 		
 		//Income amount Label
 		incomeAmount = new Label("Income Amount:");
@@ -109,7 +109,7 @@ public class AddIncome {
 		
 		//Date picker
 		incomeDate = new DatePicker();
-		incomeDate.setPromptText("Select a date");
+		incomeDate.setPromptText("Select a date"); //prompt text
 		
 		//Styling
 		incomeDate.setPrefSize(400, 75); //size of DatePicker
@@ -150,22 +150,22 @@ public class AddIncome {
 						"-fx-background-radius: 15px;"); //soft corners for button
 		
 		
-		
-							  
-		
 		layout.getChildren().addAll(pageTitle, separator, incomeField, pageName, cancel, saveIncome, pageInstruction
 									, incomeAmount, incomeDate, dateReceived);
 		
+		
 	}
+	
 	//method to make layout accessible to application class
 	public Pane getLayout() {
-		return layout;
-	}
+		return layout;	
+	}	
 	
 	//makes cancel button accessible to application class for screen switching
 	public Button getCancelButton() {
-		return cancel;
+		return cancel;	
 	}
+	
 	
 	
 	

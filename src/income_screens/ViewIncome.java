@@ -128,15 +128,15 @@ public class ViewIncome {
 									editIncome, deleteIncome, returnHome);
 		
 		
-		
-		
-		
-		
 	}
 	
 	//method to make layout accessible to application class
 	public Pane getLayout() {
 		return layout;
+	}
+	
+	public Button getEditButton() {
+		return editIncome;
 	}
 	
 	//make returnHome button accessible to application class for screen switching
