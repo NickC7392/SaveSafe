@@ -18,6 +18,7 @@ public class EditIncome {
 	private Label pageInstruction;
 	private Label editAmount;
 	private Label editDate;
+	private Label dollarSign;
 	
 	private Line separator;
 	
@@ -95,10 +96,20 @@ public class EditIncome {
 		incomeField.setStyle("-fx-font-size: 25px;" +
 							  "-fx-text-fill: BLACK;");
 		
+		//dollar sign label for income amount text field
+		dollarSign = new Label("$");
+		
+		//styling
+		dollarSign.setLayoutX(410); //x coordinate
+		dollarSign.setLayoutY(315); //y coordinate
+		dollarSign.setStyle("-fx-font-size: 30px;" +
+							"-fx-font-weight: BOLD;" +
+							"-fx-text-fill: BLACK;");
+		
 		//edit date label
 		editDate = new Label("Update Income Date:");
 		
-		//Styling
+		//styling
 		editDate.setLayoutX(400); //x coordinate
 		editDate.setLayoutY(435); //y coordinate
 		editDate.setStyle("-fx-font-size: 25px;" +
@@ -106,7 +117,7 @@ public class EditIncome {
 		
 		//date picker for income date
 		incomeDate = new DatePicker();
-		incomeDate.setPromptText("selected date will be here:"); //TEMPORARY
+		incomeDate.setPromptText("selected date will be here"); //TEMPORARY
 		
 		//styling
 		incomeDate.setFocusTraversable(false); //make it so date picker is not selected by default
@@ -148,7 +159,7 @@ public class EditIncome {
 		
 		
 		layout.getChildren().addAll(pageTitle, pageName, separator, pageInstruction, editAmount, incomeField,
-									editDate, incomeDate, saveChanges, cancel);
+									editDate, incomeDate, saveChanges, cancel, dollarSign);
 		
 		
 		
@@ -159,6 +170,8 @@ public class EditIncome {
 		return layout;
 	}
 	
+	//makes cancel button accessible to application class for screen switching
+	//EditIncome -> ViewIncome navigation
 	public Button getCancelButton() {
 		return cancel;
 	}

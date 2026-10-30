@@ -49,7 +49,7 @@ public class SafeSafeApp extends Application{
 		viewIncome.getEditButton().setOnAction(e -> {
 			scene.setRoot(editIncome.getLayout());
 		});
-		
+		//Cancel button in EditIncome; EditIncome -> ViewIncome
 		editIncome.getCancelButton().setOnAction(e -> {
 			scene.setRoot(viewIncome.getLayout());
 		});

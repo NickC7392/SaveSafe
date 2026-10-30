@@ -84,7 +84,8 @@ public class MainMenu {
 		addIncome.setStyle("-fx-font-size: 25px;" +
 						   "-fx-font-weight: BOLD;" +
 						   "-fx-text-fill: #123D2A;" +
-						   "-fx-background-radius: 15px");
+						   "-fx-background-radius: 15px;");
+
 		
 		setSavings.setPrefSize(300, 60); //size of button
 		setSavings.setLayoutX(200); //x coordinate

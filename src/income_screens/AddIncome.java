@@ -1,5 +1,13 @@
 package income_screens;
 
+import objects.Income;
+import database.IncomeDB;
+
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
+import UserFeedback.AlertMessages;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -8,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+
 
 public class AddIncome {
 	
@@ -18,6 +27,7 @@ public class AddIncome {
 	private Label pageInstruction;
 	private Label incomeAmount;
 	private Label dateReceived;
+	private Label dollarSign;
 	
 	private Line separator;
 	
@@ -98,6 +108,16 @@ public class AddIncome {
 		incomeField.setStyle("-fx-font-size: 25px;" +
 							  "-fx-text-fill: BLACK;");
 		
+		//dollar sign label for income amount text field
+		dollarSign = new Label("$");
+		
+		//styling
+		dollarSign.setLayoutX(410); //x coordinate
+		dollarSign.setLayoutY(315); //y coordinate
+		dollarSign.setStyle("-fx-font-size: 30px;" +
+							"-fx-font-weight: BOLD;" +
+							"-fx-text-fill: BLACK;");
+		
 		//Date received label
 		dateReceived = new Label("Date Received:");
 		
@@ -133,6 +153,9 @@ public class AddIncome {
 							"-fx-background-color: GOLDENROD;" +
 							"-fx-background-radius: 15px;"); //soft corners for button
 		
+		//functionality
+		saveIncome.setOnAction(e -> saveIncome());
+		
 		//Cancel button
 		cancel = new Button("Cancel");
 		
@@ -151,7 +174,7 @@ public class AddIncome {
 		
 		
 		layout.getChildren().addAll(pageTitle, separator, incomeField, pageName, cancel, saveIncome, pageInstruction
-									, incomeAmount, incomeDate, dateReceived);
+									,incomeAmount, incomeDate, dateReceived, dollarSign);
 		
 		
 	}
@@ -162,11 +185,73 @@ public class AddIncome {
 	}	
 	
 	//makes cancel button accessible to application class for screen switching
+	//AddIncome -> MainMenu navigation
 	public Button getCancelButton() {
-		return cancel;	
+		return cancel;
 	}
 	
-	
+	//saveIncome method; captures income info from incomeField (textfield) and saves to DB
+	private void saveIncome() {
+		
+		try {
+			
+			//chcks if incomeField is empty
+			if(incomeField.getText().isEmpty()) {
+				//Pop up for user feedback
+				AlertMessages.showAlert("Please enter an income amount");
+				return;
+			}
+			//captures amount entered into incomeField (textfield)
+			BigDecimal amount = new BigDecimal(incomeField.getText());
+			//captures date entered into dateRecieved (datepicker)
+			LocalDate date = incomeDate.getValue();
+			
+			//checks if entered amount is greater than 0
+			if(amount.compareTo(BigDecimal.ZERO) <= 0) { //cannot compare directly with BigDecimal objects (must use compareTo)
+				//Pop up for user feedback
+				AlertMessages.showAlert("Income amount must be greater than $0.00");
+				return;
+			}
+			
+			//checks if user selected a date
+			if(date == null) {
+				//Pop up for user feedback
+				AlertMessages.showAlert("Please select a date");
+				return;
+			}
+			
+			//create income object (uses Income object class)
+			Income income = new Income(0, amount, date);
+			//Creates DB object (uses IncomeDB class)
+			IncomeDB incomeDB = new IncomeDB();
+			//Save income object (uses Income IncomeDB class)
+			incomeDB.addIncome(income);
+			//Pop up for user feedback
+			AlertMessages.showAlert("Income Saved!");
+			
+			//Clear amountField once saved
+			incomeField.clear();
+			//clear incomeDate once saved
+			incomeDate.setValue(null);
+		
+		  //catches when entered amount cannot be converted to BigDecimal
+		} catch (NumberFormatException e) {
+			
+			//Pop up for user feedback
+			AlertMessages.showAlert("Income amount must be a number");
+			
+		  //catches DB erroes
+		} catch (SQLException e) {
+			
+			//Pop up for user feedback
+			AlertMessages.showAlert("Unable to save. Please try again.");
+			
+			//display DB error details
+			e.printStackTrace();
+			
+		}
+		
+	}
 	
 	
 }

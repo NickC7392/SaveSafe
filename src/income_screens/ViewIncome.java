@@ -61,7 +61,7 @@ public class ViewIncome {
 		separator.setStyle("-fx-stroke: WHITE"); //makes line white
 		
 		//Page instruction label
-		pageInstruction = new Label("Manage Your Income Records");
+		pageInstruction = new Label("Manage Income Records");
 		
 		//Styling
 		pageInstruction.setPrefWidth(1200); //sets width of label same size as whole screen
@@ -135,12 +135,15 @@ public class ViewIncome {
 		return layout;
 	}
 	
-	public Button getEditButton() {
-		return editIncome;
-	}
-	
 	//make returnHome button accessible to application class for screen switching
+	//ViewIncome -> MainMenu navigation
 	public Button getReturnHome() {
 		return returnHome;
+	}
+	
+	//makes editIncome button accessible to application class for screen switching
+	//ViewIncome -> EditIncome navigation
+	public Button getEditButton() {
+		return editIncome;
 	}
 }
