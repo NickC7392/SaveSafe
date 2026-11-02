@@ -43,13 +43,11 @@ public class AddIncome {
 		
 		//Layout
 		layout = new Pane();
-		
 		//Styling
 		layout.setStyle("-fx-background-color: #123D2A;");
-		
+	
 		//Title for page label
 		pageTitle = new Label("Add Income");
-		
 		//Styling
 		pageTitle.setFont(new Font(70));
 		pageTitle.setPrefWidth(1200); //set width to whole screen
@@ -58,7 +56,6 @@ public class AddIncome {
 		
 		//page name label (top right)
 		pageName = new Label("Income");
-		
 		//Styling
 		pageName.setFont(new Font(25));
 		pageName.setStyle("-fx-text-fill: DARKSEAGREEN");
@@ -70,13 +67,11 @@ public class AddIncome {
 		
 		//Separation line
 		separator = new Line(30,110,1170,110); //(x start, y start, x end, y end)
-		
 		//Styling
 		separator.setStyle("-fx-stroke: WHITE"); //makes line white
 		
 		//Enter income details label
 		pageInstruction = new Label("Enter Income Details");
-		
 		//Styling
 		pageInstruction.setLayoutY(160); // y coordinate
 		pageInstruction.setPrefWidth(1200); // set width to whole screen
@@ -87,7 +82,6 @@ public class AddIncome {
 		
 		//Income amount Label
 		incomeAmount = new Label("Income Amount:");
-		
 		//Styling
 		incomeAmount.setLayoutX(400); //x coordinate
 		incomeAmount.setLayoutY(260); //y coordinate
@@ -98,7 +92,6 @@ public class AddIncome {
 		//Income amount text field
 		incomeField = new TextField();
 		incomeField.setPromptText("0.00"); //set prompt text
-		
 		//Styling
 		incomeField.setFocusTraversable(false); //make it so text field is not selected by default
 		incomeField.setAlignment(Pos.CENTER); //set text to center of TextField
@@ -110,7 +103,6 @@ public class AddIncome {
 		
 		//dollar sign label for income amount text field
 		dollarSign = new Label("$");
-		
 		//styling
 		dollarSign.setLayoutX(410); //x coordinate
 		dollarSign.setLayoutY(315); //y coordinate
@@ -120,7 +112,6 @@ public class AddIncome {
 		
 		//Date received label
 		dateReceived = new Label("Date Received:");
-		
 		//Styling
 		dateReceived.setLayoutX(400); //x coordinate
 		dateReceived.setLayoutY(435); //y coordinate
@@ -130,7 +121,6 @@ public class AddIncome {
 		//Date picker
 		incomeDate = new DatePicker();
 		incomeDate.setPromptText("Select a date"); //prompt text
-		
 		//Styling
 		incomeDate.setPrefSize(400, 75); //size of DatePicker
 		incomeDate.getEditor().setAlignment(Pos.CENTER); //centers text  within DatePicker
@@ -142,7 +132,6 @@ public class AddIncome {
 
 		//Save income button
 		saveIncome = new Button("Save Income");
-		
 		//Styling
 		saveIncome.setPrefSize(185, 60); //size of saveIncome button
 		saveIncome.setLayoutX(400); //x coordinate
@@ -153,12 +142,11 @@ public class AddIncome {
 							"-fx-background-color: GOLDENROD;" +
 							"-fx-background-radius: 15px;"); //soft corners for button
 		
-		//functionality
+		//functionality for saveIncome button
 		saveIncome.setOnAction(e -> saveIncome());
 		
 		//Cancel button
 		cancel = new Button("Cancel");
-		
 		//Styling
 		cancel.setPrefSize(185, 60); //size of cancel button
 		cancel.setLayoutX(615); //x coordinate
@@ -198,7 +186,7 @@ public class AddIncome {
 			//chcks if incomeField is empty
 			if(incomeField.getText().isEmpty()) {
 				//Pop up for user feedback
-				AlertMessages.showAlert("Please enter an income amount");
+				AlertMessages.showAlert("Please enter an income amount.");
 				return;
 			}
 			//captures amount entered into incomeField (textfield)
@@ -209,14 +197,14 @@ public class AddIncome {
 			//checks if entered amount is greater than 0
 			if(amount.compareTo(BigDecimal.ZERO) <= 0) { //cannot compare directly with BigDecimal objects (must use compareTo)
 				//Pop up for user feedback
-				AlertMessages.showAlert("Income amount must be greater than $0.00");
+				AlertMessages.showAlert("Income amount must be greater than $0.00.");
 				return;
 			}
 			
 			//checks if user selected a date
 			if(date == null) {
 				//Pop up for user feedback
-				AlertMessages.showAlert("Please select a date");
+				AlertMessages.showAlert("Please select an income date.");
 				return;
 			}
 			
@@ -227,26 +215,26 @@ public class AddIncome {
 			//Save income object (uses Income IncomeDB class)
 			incomeDB.addIncome(income);
 			//Pop up for user feedback
-			AlertMessages.showAlert("Income Saved!");
+			AlertMessages.showAlert("Income has been successfully saved.");
 			
 			//Clear amountField once saved
 			incomeField.clear();
 			//clear incomeDate once saved
 			incomeDate.setValue(null);
 		
-		  //catches when entered amount cannot be converted to BigDecimal
+		  //catches when entered amount cannot be converted to BigDecimal (formatted correctly)
 		} catch (NumberFormatException e) {
 			
 			//Pop up for user feedback
-			AlertMessages.showAlert("Income amount must be a number");
+			AlertMessages.showAlert("Please enter a valid income amount.");
 			
-		  //catches DB erroes
+		  //catches DB error
 		} catch (SQLException e) {
 			
 			//Pop up for user feedback
-			AlertMessages.showAlert("Unable to save. Please try again.");
+			AlertMessages.showAlert("Unable to save income. Please try again.");
 			
-			//display DB error details
+			//display DB error details in console
 			e.printStackTrace();
 			
 		}

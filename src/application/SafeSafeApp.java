@@ -37,6 +37,7 @@ public class SafeSafeApp extends Application{
 		
 		//View Income button in MainMenu; MainMenu -> ViewIncome
 		main.getViewIncome().setOnAction(e -> {
+			viewIncome.loadIncomeRecords(); //loads income records to incomeTable every time screen opens
 			scene.setRoot(viewIncome.getLayout());
 		});
 		

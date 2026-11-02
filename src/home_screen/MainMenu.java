@@ -39,7 +39,6 @@ public class MainMenu {
 		
 		//Title of screen Label
 		appName = new Label("$ave$afe");
-		
 		//Styling
 		appName.setFont(new Font(70)); 
 		appName.setStyle("-fx-text-fill: GOLDENROD; -fx-font-weight: BOLD;");
@@ -48,7 +47,6 @@ public class MainMenu {
 		
 		//Screen Name Label
 		pageDesc = new Label("Home");
-		
 		//Styling
 		pageDesc.setFont(new Font(25));
 		pageDesc.setStyle("-fx-text-fill: DARKSEAGREEN");
@@ -59,13 +57,11 @@ public class MainMenu {
 		
 		//Separation line
 		separator = new Line(30,110,1170,110); //(x start, y start, x end, y end)
-		
 		//Styling
 		separator.setStyle("-fx-stroke: WHITE");
 		
 		//Start here Label
 		startHere = new Label("Start Here!");
-		
 		//Styling
 		startHere.setFont(new Font(30));
 		startHere.setStyle("-fx-text-fill: GOLDENROD");
@@ -86,7 +82,6 @@ public class MainMenu {
 						   "-fx-text-fill: #123D2A;" +
 						   "-fx-background-radius: 15px;");
 
-		
 		setSavings.setPrefSize(300, 60); //size of button
 		setSavings.setLayoutX(200); //x coordinate
 		setSavings.setLayoutY(405); //y coordinate

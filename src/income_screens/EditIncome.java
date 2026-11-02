@@ -33,13 +33,11 @@ public class EditIncome {
 		
 		//layout
 		layout = new Pane();
-		
 		//styling
 		layout.setStyle("-fx-background-color: #123D2A;");
 		
 		//page title label
 		pageTitle = new Label("Edit Income");
-		
 		//Styling
 		pageTitle.setFont(new Font(70));
 		pageTitle.setPrefWidth(1200); //set width to whole screen
@@ -48,7 +46,6 @@ public class EditIncome {
 		
 		//page name label (top right)
 		pageName = new Label("Income");
-		
 		//styling
 		pageName.setFont(new Font(25));
 		pageName.setStyle("-fx-text-fill: DARKSEAGREEN");
@@ -59,13 +56,11 @@ public class EditIncome {
 		
 		//separator line
 		separator = new Line(30,110,1170,110); //(x start, y start, x end, y end)
-		
 		//Styling
 		separator.setStyle("-fx-stroke: WHITE"); //makes line white
 		
 		//page instruction label
 		pageInstruction = new Label("Update Selected Income Record");
-		
 		//styling
 		pageInstruction.setLayoutY(160); // y coordinate
 		pageInstruction.setPrefWidth(1200); // set width to whole screen
@@ -76,7 +71,6 @@ public class EditIncome {
 		
 		//edit income amount label
 		editAmount = new Label("Update Income Amount:");
-		
 		//Styling
 		editAmount.setLayoutX(400); //x coordinate
 		editAmount.setLayoutY(260); //y coordinate
@@ -86,7 +80,6 @@ public class EditIncome {
 		//income amount text field
 		incomeField = new TextField();
 		incomeField.setPromptText("selected income will be here"); //TEMPORARY
-		
 		//styling
 		incomeField.setFocusTraversable(false); //make it so text field is not selected by default
 		incomeField.setAlignment(Pos.CENTER); //set text to center of TextField
@@ -98,7 +91,6 @@ public class EditIncome {
 		
 		//dollar sign label for income amount text field
 		dollarSign = new Label("$");
-		
 		//styling
 		dollarSign.setLayoutX(410); //x coordinate
 		dollarSign.setLayoutY(315); //y coordinate
@@ -108,7 +100,6 @@ public class EditIncome {
 		
 		//edit date label
 		editDate = new Label("Update Income Date:");
-		
 		//styling
 		editDate.setLayoutX(400); //x coordinate
 		editDate.setLayoutY(435); //y coordinate
@@ -118,7 +109,6 @@ public class EditIncome {
 		//date picker for income date
 		incomeDate = new DatePicker();
 		incomeDate.setPromptText("selected date will be here"); //TEMPORARY
-		
 		//styling
 		incomeDate.setFocusTraversable(false); //make it so date picker is not selected by default
 		incomeDate.setPrefSize(400, 75); //size of DatePicker
@@ -130,7 +120,6 @@ public class EditIncome {
 		
 		//save changes button
 		saveChanges = new Button("Save Changes");
-		
 		//styling
 		saveChanges.setPrefSize(200, 60); //size of saveIncome button
 		saveChanges.setLayoutX(400); //x coordinate
@@ -143,7 +132,6 @@ public class EditIncome {
 		
 		//cancel button
 		cancel = new Button("Cancel");
-		
 		//styling
 		cancel.setPrefSize(185, 60); //size of cancel button
 		cancel.setLayoutX(615); //x coordinate
