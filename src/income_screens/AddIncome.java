@@ -36,7 +36,7 @@ public class AddIncome {
 	private DatePicker incomeDate;
 	
 	private Button saveIncome;
-	private Button cancel;
+	private Button returnHome;
 	
 	
 	public AddIncome() {
@@ -133,36 +133,36 @@ public class AddIncome {
 		//Save income button
 		saveIncome = new Button("Save Income");
 		//Styling
-		saveIncome.setPrefSize(185, 60); //size of saveIncome button
+		saveIncome.setPrefSize(400, 60); //size of saveIncome button
 		saveIncome.setLayoutX(400); //x coordinate
-		saveIncome.setLayoutY(600); //y coordinate
+		saveIncome.setLayoutY(590); //y coordinate
 		saveIncome.setStyle("-fx-font-size: 25px;" +
 							"-fx-font-weight: BOLD;" +
 							"-fx-text-fill: #123D2A;" +
 							"-fx-background-color: GOLDENROD;" +
 							"-fx-background-radius: 15px;"); //soft corners for button
-		
 		//functionality for saveIncome button
 		saveIncome.setOnAction(e -> saveIncome());
 		
-		//Cancel button
-		cancel = new Button("Cancel");
+		//return home button
+		returnHome = new Button("Return Home");
 		//Styling
-		cancel.setPrefSize(185, 60); //size of cancel button
-		cancel.setLayoutX(615); //x coordinate
-		cancel.setLayoutY(600); //y coordinate
-		cancel.setStyle("-fx-font-size: 25px;" +
+		returnHome.setPrefSize(400, 60);
+		returnHome.setLayoutX(400);
+		returnHome.setLayoutY(680);
+		returnHome.setStyle("-fx-font-size: 25px;" +
 						"-fx-font-weight: BOLD;" +
 						"-fx-text-fill: WHITE;" +
 						"-fx-background-color: #123D2A;" +
 						"-fx-border-color: DARKSEAGREEN;" +
 						"-fx-border-width: 2px;" +
 						"-fx-border-radius: 15px;" + //soft corners for border to match button
-						"-fx-background-radius: 15px;"); //soft corners for button
+						"-fx-background-radius: 15px;"); //soft corners for button);
 		
+
 		
-		layout.getChildren().addAll(pageTitle, separator, incomeField, pageName, cancel, saveIncome, pageInstruction
-									,incomeAmount, incomeDate, dateReceived, dollarSign);
+		layout.getChildren().addAll(pageTitle, separator, incomeField, pageName, saveIncome, pageInstruction
+									,incomeAmount, incomeDate, dateReceived, dollarSign, returnHome);
 		
 		
 	}
@@ -170,15 +170,13 @@ public class AddIncome {
 	//method to make layout accessible to application class
 	public Pane getLayout() {
 		return layout;	
-	}	
-	
-	//makes cancel button accessible to application class for screen switching
-	//AddIncome -> MainMenu navigation
-	public Button getCancelButton() {
-		return cancel;
 	}
 	
-	//saveIncome method; captures income info from incomeField (textfield) and saves to DB
+	//method to make 
+	public Button getReturnHome() {
+		return returnHome;
+	}
+	//saveIncome method; captures income info from incomeField and saves to DB
 	private void saveIncome() {
 		
 		try {
@@ -195,7 +193,8 @@ public class AddIncome {
 			LocalDate date = incomeDate.getValue();
 			
 			//checks if entered amount is greater than 0
-			if(amount.compareTo(BigDecimal.ZERO) <= 0) { //cannot compare directly with BigDecimal objects (must use compareTo)
+			if(amount.compareTo(BigDecimal.ZERO) <= 0) { //cannot compare bigdecimal values directly (use compareTo)
+														 //returns -1, 0 or 1 and compares to 0
 				//Pop up for user feedback
 				AlertMessages.showAlert("Income amount must be greater than $0.00.");
 				return;
@@ -222,7 +221,7 @@ public class AddIncome {
 			//clear incomeDate once saved
 			incomeDate.setValue(null);
 		
-		  //catches when entered amount cannot be converted to BigDecimal (formatted correctly)
+		  //catches when amount entered is not a valid number
 		} catch (NumberFormatException e) {
 			
 			//Pop up for user feedback
@@ -240,7 +239,6 @@ public class AddIncome {
 		}
 		
 	}
-	
 	
 }
 	

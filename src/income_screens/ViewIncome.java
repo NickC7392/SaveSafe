@@ -82,7 +82,7 @@ public class ViewIncome {
 		incomeTable = new TableView<Income>();
 		
 		//Amount column
-		TableColumn<Income, BigDecimal> amountColumn = new TableColumn<>("Amount");
+		TableColumn<Income, BigDecimal> amountColumn = new TableColumn<>("Amount($)");
 		amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 		//Styling
 		amountColumn.setPrefWidth(450);
@@ -130,6 +130,8 @@ public class ViewIncome {
 							  "-fx-font-size: 25px;" +
 							  "-fx-font-weight: BOLD;" +
 							  "-fx-background-radius: 15px;"); //soft corners
+		//functionality for deleteIncome button
+		deleteIncome.setOnAction(e -> deleteSelectedIncome());
 		
 		//Return to MainMenu button
 		returnHome = new Button("Return Home");
@@ -171,6 +173,12 @@ public class ViewIncome {
 		return editIncome;
 	}
 	
+	//returns currently selected record inside of incomeTable
+	//used for passing to editIncome screen
+	public Income getSelectedIncome() {
+		return incomeTable.getSelectionModel().getSelectedItem();
+	}
+	
 	//load income records from sql into incomeTable
 	public void loadIncomeRecords() {
 		
@@ -183,7 +191,7 @@ public class ViewIncome {
 			//converts arraylist to observaleArrayList
 			//obserableArrayList to incomeTable
 			
-			
+		  //catches DB errors
 		} catch (SQLException e) {
 			//user feedback incase of sql issue
 			AlertMessages.showAlert("Unable to retrieve income records.");
@@ -191,5 +199,41 @@ public class ViewIncome {
 			e.printStackTrace();
 			
 		}
+	}
+	
+	//delete income from incomeTable using delete button
+	public void deleteSelectedIncome() {
+		
+		//retrieve selected income record from incomeTable
+		Income selectedIncome = incomeTable.getSelectionModel().getSelectedItem();
+		
+		//checks if user selected incomme record from table
+		if(selectedIncome == null) {
+			AlertMessages.showAlert("Please select an income record to delete.");
+			return;
+		}
+		
+		//checks if user confirm deletion (clicks OK on alertMessage)
+		if(AlertMessages.confirmDelete("Are you sure you want to delete this income record?")) {
+			
+			try {
+				//create incomeDB object
+				IncomeDB incomeDB = new IncomeDB();
+				//deletes selected income record using its ID
+				incomeDB.deleteIncome(selectedIncome.getIncomeID());
+				//refreshes incomeTable after deletion so deleted record isnt showed
+				loadIncomeRecords();
+				//user feedback
+				AlertMessages.showAlert("Income record successfully deleted.");
+				
+				//catches DB errors
+			} catch (SQLException e) {
+				//user feedback incase of sql issue
+				AlertMessages.showAlert("Unable to delete income record.");
+				//display DB error details in console
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }

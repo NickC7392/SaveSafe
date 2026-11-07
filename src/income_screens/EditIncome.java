@@ -1,5 +1,11 @@
 package income_screens;
 
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
+import UserFeedback.AlertMessages;
+import database.IncomeDB;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -8,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import objects.Income;
 
 public class EditIncome {
 
@@ -27,6 +34,8 @@ public class EditIncome {
 	
 	private Button saveChanges;
 	private Button cancel;
+	
+	private Income selectedIncome;
 	
 	
 	public EditIncome() {
@@ -153,6 +162,7 @@ public class EditIncome {
 		
 		
 	}
+	
 	//method to make layout accessible to application class
 	public Pane getLayout() {
 		return layout;
@@ -162,6 +172,73 @@ public class EditIncome {
 	//EditIncome -> ViewIncome navigation
 	public Button getCancelButton() {
 		return cancel;
+	}
+	
+	public Button getSaveChangesButton() {
+		return saveChanges;
+	}
+	
+	//loads selected income record into edit fields
+	public void setIncome(Income income) {
+		//stores selected income record
+		selectedIncome = income;
+		//displays selected income amount
+		incomeField.setText(income.getAmount().toString());
+		//displays seclected income date
+		incomeDate.setValue(income.getDate());
+		
+	}
+	
+	//saves changes made to selected income record
+	public boolean saveIncomeChanges() {
+		
+		try {
+			//checks if income amount field is empty
+			if(incomeField.getText().isEmpty()) {
+				AlertMessages.showAlert("Please enter a new income amount");
+				return false;
+			}
+			//retrieves and converts entered amount from string to BigDecimal
+			BigDecimal amount = new BigDecimal(incomeField.getText());
+			//retrieves selected date from datePicker
+			LocalDate date = incomeDate.getValue();
+			
+			//checks if income amount is greater than 0
+			if(amount.compareTo(BigDecimal.ZERO) <= 0) {
+				AlertMessages.showAlert("Income amount must be greater than $0.00.");
+				return false;
+			}
+			//checks if date was selected
+			if(date == null) {
+				AlertMessages.showAlert("Please select a new income date.");
+				return false;
+			}
+			
+			//create new income object containing updated information but keep the same ID
+			Income updatedIncome = new Income(selectedIncome.getIncomeID(), amount, date);
+			//creates incomeDB object 
+			IncomeDB incomeDB = new IncomeDB();
+			//updates selected income record in DB
+			incomeDB.updateIncome(updatedIncome);
+			//display success message
+			AlertMessages.showAlert("Income record successfully updated.");
+			//returns true to indicate successful update
+			return true;
+		  //handles invalid input (ex. abc)
+		} catch (NumberFormatException e) {
+			
+			AlertMessages.showAlert("Please enter a valid income amount.");
+			return false;
+		  //handles sql errors
+		} catch (SQLException e) {
+			
+			AlertMessages.showAlert("Unable to update income record.");
+			//display error details in console
+			e.printStackTrace();
+			return false;
+			
+		}
+		
 	}
 
 }

@@ -1,5 +1,6 @@
 package application;
 
+import UserFeedback.AlertMessages;
 import home_screen.MainMenu;
 
 import income_screens.AddIncome;
@@ -9,6 +10,7 @@ import income_screens.EditIncome;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import objects.Income;
 
 
 public class SafeSafeApp extends Application{
@@ -30,8 +32,8 @@ public class SafeSafeApp extends Application{
 			scene.setRoot(addIncome.getLayout());
 		});
 		
-		//Cancel Button in AddIncome; AddIncome -> MainMenu
-		addIncome.getCancelButton().setOnAction(e -> {
+		//Return Home button in AddIncome; AddIncome -> MainMenu
+		addIncome.getReturnHome().setOnAction(e -> {
 			scene.setRoot(main.getLayout());
 		});
 		
@@ -48,8 +50,31 @@ public class SafeSafeApp extends Application{
 		
 		//Edit button in ViewIncome; ViewIncome -> EditIncome
 		viewIncome.getEditButton().setOnAction(e -> {
+			//retrieves selected income record from incomeTable in viewIncome
+			Income selectedIncome = viewIncome.getSelectedIncome();
+			if(selectedIncome == null) {
+				AlertMessages.showAlert("Please select an income record to edit.");
+				return;
+			}
+			//loads selected income record from IncomeTable into editIncome screen
+			editIncome.setIncome(selectedIncome);
 			scene.setRoot(editIncome.getLayout());
+			
 		});
+		
+		//Save changes button in EditIncome; EditIncome -> ViewIncome
+		//handles saving and returning to viewIncome
+		editIncome.getSaveChangesButton().setOnAction(e -> {
+			//saves changes and checks if update was successful
+			if(editIncome.saveIncomeChanges()) {
+				//refreshes incomeTable with updated record
+				viewIncome.loadIncomeRecords();
+				//returns to viewIncome screen
+				scene.setRoot(viewIncome.getLayout());
+			}
+			
+		});
+		
 		//Cancel button in EditIncome; EditIncome -> ViewIncome
 		editIncome.getCancelButton().setOnAction(e -> {
 			scene.setRoot(viewIncome.getLayout());
