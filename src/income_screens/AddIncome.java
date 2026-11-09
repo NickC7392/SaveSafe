@@ -124,6 +124,7 @@ public class AddIncome {
 		//Styling
 		incomeDate.setPrefSize(400, 75); //size of DatePicker
 		incomeDate.getEditor().setAlignment(Pos.CENTER); //centers text  within DatePicker
+		incomeDate.setFocusTraversable(false); //make it so text field is not selected by default
 		incomeDate.setLayoutX(400); //x coordinate
 		incomeDate.setLayoutY(475); //y coordinate
 		incomeDate.setStyle("-fx-font-size: 25px;" +
@@ -181,7 +182,7 @@ public class AddIncome {
 		
 		try {
 			
-			//chcks if incomeField is empty
+			//checks if incomeField is empty
 			if(incomeField.getText().isEmpty()) {
 				//Pop up for user feedback
 				AlertMessages.showAlert("Please enter an income amount.");

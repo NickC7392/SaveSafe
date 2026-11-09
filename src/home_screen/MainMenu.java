@@ -168,5 +168,13 @@ public class MainMenu {
 	public Button getViewIncome() {
 		return viewIncome;
 	}
+	
+	public Button getAddTransaction() {
+		return addTransaction;
+	}
+	
+	public Button getViewTransaction() {
+		return viewTransaction;
+	}
 
 }

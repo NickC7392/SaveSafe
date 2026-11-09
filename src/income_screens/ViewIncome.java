@@ -107,6 +107,7 @@ public class ViewIncome {
 		incomeTable.setLayoutX(150); //x coordinate
 		incomeTable.setLayoutY(210); //y coordinate
 		incomeTable.setStyle("-fx-background-color: #F1EBDD;");
+		
 		//Edit income button
 		editIncome = new Button("Edit Income");
 		//Styling
