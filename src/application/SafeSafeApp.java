@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import objects.Income;
 import transaction_screens.AddTransaction;
+import transaction_screens.EditTransaction;
 import transaction_screens.ViewTransaction;
 
 
@@ -24,6 +25,7 @@ public class SafeSafeApp extends Application{
 		EditIncome editIncome = new EditIncome();
 		AddTransaction addTransaction = new AddTransaction();
 		ViewTransaction viewTransaction = new ViewTransaction();
+		EditTransaction editTransaction = new EditTransaction();
 
 		
 		//uses getLayout method from MainMenu class to return its pane
@@ -104,6 +106,16 @@ public class SafeSafeApp extends Application{
 		//Return Home button in ViewTransaction; ViewTransaction -> MainMenu
 		viewTransaction.getReturnHome().setOnAction(e -> {
 			scene.setRoot(main.getLayout());
+		});
+		
+		//Edit button in ViewTransaction; ViewTransaction -> EditTransaction
+		viewTransaction.getEditTransaction().setOnAction(e -> {
+			scene.setRoot(editTransaction.getLayout());
+		});
+		
+		//Cancel button in EditTransaction; EditTransaction -> ViewTransaction
+		editTransaction.getCancelButton().setOnAction(e -> {
+			scene.setRoot(viewTransaction.getLayout());
 		});
 		
 		

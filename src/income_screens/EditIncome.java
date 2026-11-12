@@ -214,12 +214,12 @@ public class EditIncome {
 				return false;
 			}
 			
-			//create new income object containing updated information but keep the same ID
-			Income updatedIncome = new Income(selectedIncome.getIncomeID(), amount, date);
+			selectedIncome.setAmount(amount);
+			selectedIncome.setDate(date);
 			//creates incomeDB object 
 			IncomeDB incomeDB = new IncomeDB();
 			//updates selected income record in DB
-			incomeDB.updateIncome(updatedIncome);
+			incomeDB.updateIncome(selectedIncome);
 			//display success message
 			AlertMessages.showAlert("Income record successfully updated.");
 			//returns true to indicate successful update

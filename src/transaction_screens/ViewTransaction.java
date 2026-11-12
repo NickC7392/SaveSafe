@@ -130,12 +130,7 @@ public class ViewTransaction {
 		layout.getChildren().addAll(pageTitle, pageName, pageInstruction, separator, transactionTable,
 									editTransaction, deleteTransaction, returnHome);	
 		
-		
-		
-		
-
-		
-		
+			
 	}
 	
 	//method to make layout accessible to application class
@@ -144,9 +139,15 @@ public class ViewTransaction {
 	}
 		
 	//make returnHome button accessible to application class for screen switching
-	//ViewIncome -> MainMenu navigation
+	//ViewTransaction -> MainMenu 
 	public Button getReturnHome() {
 		return returnHome;
+	}
+	
+	//make editTransaction button accessible to application class for screen switching
+	//ViewTransaction -> EditTransaction
+	public Button getEditTransaction() {
+		return editTransaction;
 	}
 	
 

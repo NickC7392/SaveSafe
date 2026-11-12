@@ -22,6 +22,7 @@ public class AddTransaction {
 	private Label dateReceived;
 	private Label transactionDescription;
 	private Label dollarSign;
+	private Label category;
 	
 	private Line separator;
 	
@@ -79,8 +80,8 @@ public class AddTransaction {
 		//Transaction amount Label
 		transactionAmount = new Label("Transaction Amount:");
 		//Styling
-		transactionAmount.setLayoutX(200); //x coordinate
-		transactionAmount.setLayoutY(260); //y coordinate
+		transactionAmount.setLayoutX(150); //x coordinate
+		transactionAmount.setLayoutY(250); //y coordinate
 		transactionAmount.setStyle("-fx-font-size: 25px;" +
 							  "-fx-text-fill: DARKSEAGREEN;");
 		
@@ -91,16 +92,16 @@ public class AddTransaction {
 		transactionField.setFocusTraversable(false); //make it so text field is not selected by default
 		transactionField.setAlignment(Pos.CENTER); //set text to center of TextField
 		transactionField.setPrefSize(400, 75); //size of text field
-		transactionField.setLayoutX(120); //x coordinate
-		transactionField.setLayoutY(300); //y coordinate
+		transactionField.setLayoutX(150); //x coordinate
+		transactionField.setLayoutY(290); //y coordinate
 		transactionField.setStyle("-fx-font-size: 25px;" +
 							      "-fx-text-fill: BLACK;");
 		
 		// $ label
 		dollarSign = new Label("$");
 		//Styling
-		dollarSign.setLayoutX(130); //x coordinate
-		dollarSign.setLayoutY(315); //y coordinate
+		dollarSign.setLayoutX(155); //x coordinate
+		dollarSign.setLayoutY(303); //y coordinate
 		dollarSign.setStyle("-fx-font-size: 30px;" +
 							"-fx-font-weight: BOLD;" +
 							"-fx-text-fill: BLACK;");
@@ -108,8 +109,8 @@ public class AddTransaction {
 		//Date received label
 		dateReceived = new Label("Date Received:");
 		//Styling
-		dateReceived.setLayoutX(795); //x coordinate
-		dateReceived.setLayoutY(260); //y coordinate
+		dateReceived.setLayoutX(650); //x coordinate
+		dateReceived.setLayoutY(250); //y coordinate
 		dateReceived.setStyle("-fx-font-size: 25px;" +
 							  "-fx-text-fill: DARKSEAGREEN;");
 		
@@ -120,16 +121,16 @@ public class AddTransaction {
 		transactionDate.setPrefSize(400, 75); //size of DatePicker
 		transactionDate.getEditor().setAlignment(Pos.CENTER); //centers text  within DatePicker
 		transactionDate.setFocusTraversable(false); //make it so text field is not selected by default
-		transactionDate.setLayoutX(680); //x coordinate
-		transactionDate.setLayoutY(300); //y coordinate
+		transactionDate.setLayoutX(650); //x coordinate
+		transactionDate.setLayoutY(290); //y coordinate
 		transactionDate.setStyle("-fx-font-size: 25px;" +
 								 "-fx-text-fill: BLACK;");
 		
 		//Transaction details label
 		transactionDescription = new Label("Description (Optional):");
 		//Styling
-		transactionDescription.setLayoutX(755); //x coordinate
-		transactionDescription.setLayoutY(410); //y coordinate
+		transactionDescription.setLayoutX(650); //x coordinate
+		transactionDescription.setLayoutY(400); //y coordinate
 		transactionDescription.setStyle("-fx-font-size: 25px;" +
 									    "-fx-text-fill: DARKSEAGREEN;");
 		
@@ -139,18 +140,26 @@ public class AddTransaction {
 		description.setFocusTraversable(false); //make it so text field is not selected by default
 		description.setWrapText(true);
 		description.setPrefSize(400, 100); //size of text field
-		description.setLayoutX(680); //x coordinate
-		description.setLayoutY(450); //y coordinate
+		description.setLayoutX(650); //x coordinate
+		description.setLayoutY(440); //y coordinate
 		description.setStyle("-fx-font-size: 25px;" +
 							  "-fx-text-fill: BLACK;");
+		
+		//Category label
+		category = new Label("Category:");
+		//Styling
+		category.setLayoutX(150);
+		category.setLayoutY(400);
+		category.setStyle("-fx-font-size: 25px;" +
+						  "-fx-text-fill: DARKSEAGREEN;");
 		
 		//Transaction Category dropdown
 		transactionCategory = new ComboBox<>();
 		transactionCategory.setPromptText("Select Category:");
 		//Styling
 		transactionCategory.setPrefSize(400, 75);
-		transactionCategory.setLayoutX(120);
-		transactionCategory.setLayoutY(450);
+		transactionCategory.setLayoutX(150);
+		transactionCategory.setLayoutY(440);
 		transactionCategory.setStyle("-fx-font-size: 25px;" +
 									 "-fx-text-fill: BLACK;" +
 									 "-fx-alignment: CENTER;");
@@ -185,7 +194,7 @@ public class AddTransaction {
 		layout.getChildren().addAll(pageTitle, pageName, pageInstruction, transactionAmount,
 									separator, transactionField, transactionDate, saveTransaction,
 									returnHome, dateReceived, description, transactionDescription,
-									transactionCategory, dollarSign);
+									transactionCategory, dollarSign, category);
 		
 		
 		

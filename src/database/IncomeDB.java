@@ -41,7 +41,7 @@ public class IncomeDB {
 		//close db connection
 		db.close();
 	}
-	
+	//for edit income
 	public void updateIncome(Income income) throws SQLException {
 		
 		//sql statement for updating income record (using incomeID)

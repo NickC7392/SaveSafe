@@ -14,18 +14,33 @@ public class Income {
 		this.incomeID = incomeID;
 		this.amount = amount;
 		this.date = date;
+		
 	}
-	//returns incomeID
+	
+	//getters used for saving/retrieving info
+
 	public int getIncomeID() {
 		return incomeID;
 	}
-	//returns amount
+
 	public BigDecimal getAmount() {
 		return amount;
 	}
-	//returns date
+
 	public LocalDate getDate() {
 		return date;
+		
+	}
+	
+	//setters used for updating existing info 
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+		
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
 }

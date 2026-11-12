@@ -160,19 +160,26 @@ public class MainMenu {
 		
 	}
 	
-	//makes add income accessible to application class for screen switching
+	//makes Add Income button accessible to application class for screen switching
+	//MainMenu -> AddIncome
 	public Button getAddIncome() {
 		return addIncome;
 	}
 	
+	//makes View Income button accessible to application class for screen switching
+	//MainMenu -> ViewIncome
 	public Button getViewIncome() {
 		return viewIncome;
 	}
 	
+	//makes Add Transaction button accessible to application class for screen switching
+	//MainMenu -> AddTransaction
 	public Button getAddTransaction() {
 		return addTransaction;
 	}
 	
+	//makes View Transaction button accessible to application class for screen switching
+	//MainMenu -> ViewTransaction
 	public Button getViewTransaction() {
 		return viewTransaction;
 	}
