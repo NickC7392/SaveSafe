@@ -35,7 +35,7 @@ public class IncomeDB {
 		statement.setDate(2, java.sql.Date.valueOf(income.getDate()));
 		
 		//executes command
-		statement.executeUpdate(); //since INSERT adds records use .executeUpdate()
+		statement.executeUpdate(); //since INSERT adds information use .executeUpdate()
 		//closes sql statement
 		statement.close();
 		//close db connection
@@ -52,10 +52,10 @@ public class IncomeDB {
 		statement.setBigDecimal(1, income.getAmount());
 		//sets updated date
 		statement.setDate(2, java.sql.Date.valueOf(income.getDate()));
-		//sets incomeID to identify which record to update
+		//gets incomeID to identify which record to update
 		statement.setInt(3, income.getIncomeID());
 		//executes command
-		statement.executeUpdate();
+		statement.executeUpdate(); //since UPDATE adds information use .executeUpdate()
 		//closes sql statement
 		statement.close();
 		//closes db connection
