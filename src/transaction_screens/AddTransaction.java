@@ -1,5 +1,11 @@
 package transaction_screens;
 
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
+import UserFeedback.AlertMessages;
+import database.TransactionDB;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -10,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import objects.Transaction;
 
 public class AddTransaction {
 	
@@ -31,7 +38,7 @@ public class AddTransaction {
 	
 	private DatePicker transactionDate;
 	
-	private ComboBox<?> transactionCategory; //TEMP
+	private ComboBox<String> transactionCategory; //TEMP
 	
 	private Button saveTransaction;
 	private Button returnHome;
@@ -156,6 +163,15 @@ public class AddTransaction {
 		//Transaction Category dropdown
 		transactionCategory = new ComboBox<>();
 		transactionCategory.setPromptText("Select Category:");
+		//add categories to combobox (in same order as DB)
+		transactionCategory.getItems().addAll(
+				"Food",
+				"Bills",
+				"Memberships",
+				"Transportation",
+				"Shopping",
+				"Entertainment",
+				"Other");
 		//Styling
 		transactionCategory.setPrefSize(400, 75);
 		transactionCategory.setLayoutX(150);
@@ -175,6 +191,9 @@ public class AddTransaction {
 							"-fx-text-fill: #123D2A;" +
 							"-fx-background-color: GOLDENROD;" +
 							"-fx-background-radius: 15px;"); //soft corners for button
+		
+		saveTransaction.setOnAction(e -> saveTransaction());
+			
 		
 		//return home button
 		returnHome = new Button("Return Home");
@@ -208,6 +227,78 @@ public class AddTransaction {
 	//ViewIncome -> MainMenu navigation
 	public Button getReturnHome() {
 		return returnHome;
+	}
+	
+	private void saveTransaction() {
+		
+		try {
+			
+			//checks if amount field is empty
+			if(transactionField.getText().isEmpty()) {
+				//pop up for user feedback
+				AlertMessages.showAlert("Please enter a transaction amount.");
+				return;
+			}
+			//convert amount into bigdecimal
+			BigDecimal amount = new BigDecimal(transactionField.getText());
+			
+			//checks if amount is greater than 0
+			if(amount.compareTo(BigDecimal.ZERO) <= 0) {
+				//pop up for user feedback
+				AlertMessages.showAlert("Transaction amount must be greater than $0.00.");
+				return;
+			}
+			//gets selected category from dropdown
+			String category = transactionCategory.getValue();
+			//checks to see if category was selected
+			if(category == null) {
+				//pop up for user feedback
+				AlertMessages.showAlert("Please seleect a transaction category.");
+				return;
+			}
+			//gets categoryID based on dropdown (each category has unique ID in DB)
+			int categoryID = transactionCategory.getSelectionModel().getSelectedIndex() + 1; //+1 since comboBox starts at index 0
+			//optional description
+			String transactionDescription = description.getText().trim();
+			//sets description to null if left empty (since optional)
+			if(transactionDescription.isEmpty()) {
+				transactionDescription = null;
+			}
+			//gets selected date
+			LocalDate date = transactionDate.getValue();
+			//checks if user selected date
+			if(date == null) {
+				//pop up for user feedback
+				AlertMessages.showAlert("Please select a transaction date.");
+				return;
+			}
+			//create transaction object
+			Transaction transaction = new Transaction(0, amount, categoryID, transactionDescription, date);
+			//create DB object
+			TransactionDB transactionDB = new TransactionDB();
+			//save transaction object
+			transactionDB.addTransaction(transaction);
+			//pop up for user feedback
+			AlertMessages.showAlert("Transaction successfully added.");
+			
+			//clear input fields after successful save
+			transactionField.clear();
+			transactionCategory.setValue(null);
+			description.clear();
+			transactionDate.setValue(null);
+			
+		  //catches when amount entered is not a valid number
+		} catch (NumberFormatException e) {
+			AlertMessages.showAlert("Please enter a valid transaction amount.");
+		  //catches DB erroes
+		} catch (SQLException e) {
+			AlertMessages.showAlert("Unable to save transaction.");
+			//display DB errors in console
+			e.printStackTrace();
+			
+		}
+		
+		
 	}
 	
 

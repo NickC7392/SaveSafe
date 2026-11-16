@@ -10,6 +10,7 @@ public class Transaction {
 	private int categoryID; //variable stores transaction category ID
 	private String description; //variable stores transaction description
 	private LocalDate date; //variable stores transaction date
+	private String categoryName;
 	
 	//initalizes transaction objects variables
 	public Transaction(int transactionID, BigDecimal amount, int categoryID, String description, LocalDate date) {
@@ -43,6 +44,10 @@ public class Transaction {
 		return date;
 	}
 	
+	public String getCategoryName() {
+		return categoryName;
+	}
+	
 	//setters used for updating exisiting info
 	
 	public void setAmount(BigDecimal amount) {
@@ -59,6 +64,10 @@ public class Transaction {
 	
 	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+	
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	
 	

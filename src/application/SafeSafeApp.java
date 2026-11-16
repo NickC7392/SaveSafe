@@ -100,6 +100,7 @@ public class SafeSafeApp extends Application{
 		
 		//View Transaction button in MainMenu; MainMenu -> ViewTransaction
 		main.getViewTransaction().setOnAction(e -> {
+			viewTransaction.loadTransactionRecords(); //load transaction records to transactionTable every time screen is opened
 			scene.setRoot(viewTransaction.getLayout());
 		});
 		

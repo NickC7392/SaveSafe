@@ -71,7 +71,7 @@ public class IncomeDB {
 		ArrayList<Income> incomeList = new ArrayList<>();
 		
 		//sql statement for retrieving income records
-		//ORDER BY income_id DESC so that newest income records is at top of table (would have been opposite otherwise)
+		//ORDER BY income_id DESC so that newest income record is at top of table (would have been opposite otherwise)
 		String sql = "SELECT * FROM Income ORDER BY income_id DESC";
 		
 		//prepares sql query

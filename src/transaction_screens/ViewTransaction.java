@@ -1,12 +1,22 @@
 package transaction_screens;
 
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
+import UserFeedback.AlertMessages;
+import database.TransactionDB;
+import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import objects.Transaction;
 
 
 public class ViewTransaction {
@@ -19,7 +29,7 @@ public class ViewTransaction {
 	
 	private Line separator;
 	
-	private TableView<String> transactionTable; //TEMP
+	private TableView<Transaction> transactionTable;
 	
 	private Button editTransaction;
 	private Button deleteTransaction;
@@ -66,7 +76,42 @@ public class ViewTransaction {
 								 "-fx-font-weight: BOLD;");
 		
 		//Transaction table
-		transactionTable = new TableView<String>();
+		transactionTable = new TableView<Transaction>();
+		
+		TableColumn<Transaction, BigDecimal> amountColumn = new TableColumn<>("Amount($)");
+		amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+		amountColumn.setPrefWidth(225);
+		amountColumn.setStyle("-fx-alignment: CENTER;" +
+							  "-fx-font-size: 20px;" +
+							  "-fx-font-weight: BOLD;");
+		
+		TableColumn<Transaction, String> categoryColumn = new TableColumn<>("Category");
+		categoryColumn.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
+		categoryColumn.setPrefWidth(225);
+		categoryColumn.setStyle("-fx-alignment: CENTER;" +
+							   "-fx-font-size: 20px;" +
+							   "-fx-font-weight: BOLD;");
+		
+		TableColumn<Transaction, String> descriptionColumn = new TableColumn<>("Description");
+		descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+		descriptionColumn.setPrefWidth(225);
+		descriptionColumn.setStyle("-fx-alignment: CENTER;" +
+							       "-fx-font-size: 20px;" +
+							       "-fx-font-weight: BOLD;");
+		
+		TableColumn<Transaction, LocalDate> dateColumn = new TableColumn<>("Date");
+		dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+		dateColumn.setPrefWidth(225);
+		dateColumn.setStyle("-fx-alignment: CENTER;" +
+							"-fx-font-size: 20px;" +
+							"-fx-font-weight: BOLD;");
+		
+		transactionTable.getColumns().addAll(
+				amountColumn,
+				categoryColumn,
+				descriptionColumn,
+				dateColumn);
+		
 		 //Styling
 		transactionTable.setPrefSize(900, 350); //size of incomeTable
 		transactionTable.setLayoutX(150); //x coordinate
@@ -148,6 +193,27 @@ public class ViewTransaction {
 	//ViewTransaction -> EditTransaction
 	public Button getEditTransaction() {
 		return editTransaction;
+	}
+	
+	//load transaction records from sql into transactionTable
+	public void loadTransactionRecords() {
+		
+		try {
+			//create transactionDB object
+			TransactionDB transactionDB = new TransactionDB();
+			//retrieve transaction records and populate table
+			transactionTable.setItems(FXCollections.observableArrayList(transactionDB.getAllTransaction()));
+			
+		  //catch DB errors
+		} catch (SQLException  e) {
+			//user feedback incase of SQL error
+			AlertMessages.showAlert("Unable to retrieve transaction records.");
+			//display error details in console
+			e.printStackTrace();
+			
+		}
+		
+		
 	}
 	
 
