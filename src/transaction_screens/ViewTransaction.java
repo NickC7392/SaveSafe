@@ -141,6 +141,8 @@ public class ViewTransaction {
 							  "-fx-font-size: 25px;" +
 							  "-fx-font-weight: BOLD;" +
 							  "-fx-background-radius: 15px;"); //soft corners
+		//functionality for deleteTransaction button
+		deleteTransaction.setOnAction(e -> deleteSelectedTransaction());
 		
 		//Return to MainMenu button
 		returnHome = new Button("Return Home");
@@ -155,27 +157,11 @@ public class ViewTransaction {
 							"-fx-background-radius: 15px;" + //soft corners
 							"-fx-border-color: DARKSEAGREEN;" +
 							"-fx-border-width: 2px;" +
-							"-fx-border-radius: 15px;"); //soft corners
-		
-		//Return to MainMenu button
-		returnHome = new Button("Return Home");
-		//Styling
-		returnHome.setPrefSize(300, 60); //size of returnHome button
-		returnHome.setLayoutX(450); //x coordinate
-		returnHome.setLayoutY(680); //y coordinate
-		returnHome.setStyle("-fx-background-color: #123D2A;" +
-							"-fx-text-fill: WHITE;" +
-							"-fx-font-size: 25px;" +
-							"-fx-font-weight: BOLD;" +
-							"-fx-background-radius: 15px;" + //soft corners
-							"-fx-border-color: DARKSEAGREEN;" +
-							"-fx-border-width: 2px;" +
-							"-fx-border-radius: 15px;"); //soft corners
+							"-fx-border-radius: 15px;"); //soft corners		
 		
 		layout.getChildren().addAll(pageTitle, pageName, pageInstruction, separator, transactionTable,
 									editTransaction, deleteTransaction, returnHome);	
-		
-			
+				
 	}
 	
 	//method to make layout accessible to application class
@@ -194,6 +180,12 @@ public class ViewTransaction {
 	public Button getEditTransaction() {
 		return editTransaction;
 	}
+	//returns currently selected record inside of transactionTable
+	//used for passing to editTransaction screen
+	public Transaction getSelectedTransaction() {
+		Transaction selectedTransaction = transactionTable.getSelectionModel().getSelectedItem();
+		return selectedTransaction;
+	}
 	
 	//load transaction records from sql into transactionTable
 	public void loadTransactionRecords() {
@@ -211,10 +203,40 @@ public class ViewTransaction {
 			//display error details in console
 			e.printStackTrace();
 			
-		}
-		
-		
+		}	
 	}
 	
+	//used for deleting transaction records from transactionTable with delete button
+	public void deleteSelectedTransaction() {
+		
+		Transaction selectedTransaction = transactionTable.getSelectionModel().getSelectedItem();
+		//checks to see if any record has been selected in transactionTable
+		if(selectedTransaction == null) {
+			//if not, pop up for feedback:
+			AlertMessages.showAlert("Please select a transaction record to delete.");
+			return;
+		}
+		//checks if user confirms delete (clicks delete button on alertMessage)
+		if(AlertMessages.confirmDelete("Are you sure you want to delete this transaction record?")) {
+			
+			try {
+				//create transactionDB object
+				TransactionDB transactionDB = new TransactionDB();
+				//deletes selected transaction record using ID
+				transactionDB.deleteTransaction(selectedTransaction.getTransactionID());
+				//reloads records in table to deleted record isn't there anymore
+				loadTransactionRecords();
+				//pop up for confirmation
+				AlertMessages.showAlert("Transaction record successfully deleted.");
+			  //catch DB errors
+			} catch (SQLException e) {
+				//pop up incase of DB error
+				AlertMessages.showAlert("Unable to delete transaction record");
+				//display db errors
+				e.printStackTrace();
+			}
+		}	
+	}
+				
 
 }

@@ -64,7 +64,7 @@ public class IncomeDB {
 	}
 	
 	
-	//retrieves all income records from DB for viewing in incomeField table
+	//used for retrieving all income records from DB for viewing in incomeField table
 	public ArrayList<Income> getAllIncome() throws SQLException {
 		
 		//ArrayList to store income records
@@ -103,7 +103,7 @@ public class IncomeDB {
 		
 	}
 	
-	//deletes selected income from incomeField table
+	//used for deleting selected income from incomeField table
 	public void deleteIncome(int incomeID) throws SQLException {
 		
 		//sql statement for deleting an income record
@@ -116,6 +116,8 @@ public class IncomeDB {
 		statement.executeUpdate(); //since DELETE removes record use .executeUpdaye()
 		//close statement
 		statement.close();
+		//close db connection
+		db.close();
 		
 		
 		

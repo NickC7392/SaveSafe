@@ -214,7 +214,7 @@ public class ViewIncome {
 			return;
 		}
 		
-		//checks if user confirm deletion (clicks OK on alertMessage)
+		//checks if user confirms deletion (clicks delete on alertMessage)
 		if(AlertMessages.confirmDelete("Are you sure you want to delete this income record?")) {
 			
 			try {

@@ -88,7 +88,7 @@ public class AlertMessages {
     	 //gets rid of ugly white box in header
     	 alert.setHeaderText(null);
     	 
-    	 //display alert and returns true if OK button is selected
+    	 //display alert and returns true if delete button is selected
     	 return alert.showAndWait().orElse(ButtonType.CANCEL) == deleteButton;
 
     	

@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import objects.Income;
+import objects.Transaction;
 import transaction_screens.AddTransaction;
 import transaction_screens.EditTransaction;
 import transaction_screens.ViewTransaction;
@@ -111,6 +112,16 @@ public class SafeSafeApp extends Application{
 		
 		//Edit button in ViewTransaction; ViewTransaction -> EditTransaction
 		viewTransaction.getEditTransaction().setOnAction(e -> {
+			//retrieves selectedTransaction from transactionTable inside of ViewTransaction
+			Transaction selectedTransaction = viewTransaction.getSelectedTransaction();
+			//checks to see if any transaction record has been selected
+			if(selectedTransaction == null) {
+				AlertMessages.showAlert("Please select a transaction record to edit.");
+				return;
+			}
+			//passes selectedTransaction to EditTransaction method (setTransaction)
+			//which fills fields in EditTransaction screen
+			editTransaction.setTransaction(selectedTransaction);
 			scene.setRoot(editTransaction.getLayout());
 		});
 		
@@ -118,7 +129,17 @@ public class SafeSafeApp extends Application{
 		editTransaction.getCancelButton().setOnAction(e -> {
 			scene.setRoot(viewTransaction.getLayout());
 		});
-		
+		//saveChanges button in EditTransaction; EditTransaction -> ViewTransaction
+		//handles saving and returning to ViewIncome
+		editTransaction.getSaveChangesButton().setOnAction(e -> {
+			//saves changes and checks if update was successful
+			if(editTransaction.saveTransactionChanges()) {
+				//refreshes transactionTable with new record
+				viewTransaction.loadTransactionRecords();
+				//returns to ViewTransaction screen
+				scene.setRoot(viewTransaction.getLayout());
+			}
+		});
 		
 		
 		

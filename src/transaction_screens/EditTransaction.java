@@ -1,5 +1,11 @@
 package transaction_screens;
 
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
+import UserFeedback.AlertMessages;
+import database.TransactionDB;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -10,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import objects.Transaction;
 
 public class EditTransaction {
 	
@@ -31,10 +38,12 @@ public class EditTransaction {
 	
 	private DatePicker transactionDate;
 	
-	private ComboBox<?> transactionCategory; //TEMP
+	private ComboBox<String> transactionCategory; //TEMP
 	
 	private Button saveChanges;
 	private Button cancel;
+	
+	private Transaction selectedTransaction;
 	
 	
 	public EditTransaction() {
@@ -154,8 +163,16 @@ public class EditTransaction {
 						  "-fx-text-fill: DARKSEAGREEN;");
 		
 		//Transaction Category dropdown
-		transactionCategory = new ComboBox<>();
+		transactionCategory = new ComboBox<String>();
 		transactionCategory.setPromptText("Select Category:");
+		transactionCategory.getItems().addAll(
+				"Food",
+				"Bills",
+				"Memberships",
+				"Transportation",
+				"Shopping",
+				"Entertainment",
+				"Other");
 		//Styling
 		transactionCategory.setPrefSize(400, 75);
 		transactionCategory.setLayoutX(150);
@@ -209,11 +226,96 @@ public class EditTransaction {
 	public Button getCancelButton() {
 		return cancel;
 	}
+	//makes saveChanges button accessible to application class for screen switching
+	public Button getSaveChangesButton() {
+		return saveChanges;
+	}
+	//loads selected transaction from transactionTable into edit fields
+	public void setTransaction(Transaction transaction) {
+		//stores selected transaction record
+		selectedTransaction = transaction;
 		
+		transactionField.setText(transaction.getAmount().toString()); //displays selected amount
+		transactionDate.setValue(transaction.getDate()); //displays selected date
+		transactionCategory.setValue(transaction.getCategoryName()); //displays selected category
+		description.setText(transaction.getDescription()); //displays selecteddescription (if any)
 		
+	}
+	//saves changes to selected transaction record
+	public boolean saveTransactionChanges() {
+		
+		try{
+			//checks if transaction amount field is empty
+			if(transactionField.getText().isEmpty()) {
+				AlertMessages.showAlert("Please enter a new transaction amount.");
+				return false;
+			}
+			//retrieves selected amount
+			BigDecimal amount = new BigDecimal(transactionField.getText());
+			//retrieves selected date from datePicker
+			LocalDate date = transactionDate.getValue();
+			//retrieves selected category fromn comboBox
+			int categoryID = transactionCategory.getSelectionModel().getSelectedIndex() + 1;
+			//retrieves selected description
+			String description = this.description.getText().trim();
+			
+			//checks if transaction amount is greater than 0
+			if(amount.compareTo(BigDecimal.ZERO) <= 0) {
+				AlertMessages.showAlert("Amount must be greater than $0.00.");
+				return false;
+			}
+			//checks if date field is empty
+			if(date == null) {
+				AlertMessages.showAlert("Please select a new transaction date.");
+				return false;
+			}
+			//checks if combobox has anything selected
+			if(transactionCategory.getValue() == null) {
+				AlertMessages.showAlert("Please select a new transaction category.");
+				return false;
+			}
+			//checks if description is empty
+			if(description.isEmpty()) {
+				description = null;
+			}
+			//updates selectedTransaction with newly entered info
+			selectedTransaction.setAmount(amount);
+			selectedTransaction.setDate(date);
+			selectedTransaction.setCategoryID(categoryID);
+			selectedTransaction.setCategoryName(transactionCategory.getValue());
+			selectedTransaction.setDescription(description);
+			
+			//create transactionDB object
+			TransactionDB transactionDB = new TransactionDB();
+			//updates selected transaction record in DB
+			transactionDB.updateTransaction(selectedTransaction);
+			
+			AlertMessages.showAlert("Transaction record successfully updated.");
+			
+			return true;
+			
+			
+		  //handles invalid input (ex. abc)
+		} catch (NumberFormatException e) {
+			
+			AlertMessages.showAlert("Please enter a valid transaction amount.");
+			return false;
+		  //handles DB errors
+		} catch (SQLException e) {
+			
+			AlertMessages.showAlert("Unable to update transaction record.");
+			e.printStackTrace();
+			return false;
+			
+		}
 		
 		
 	}
+		
+		
+		
+		
+}
 	
 
 

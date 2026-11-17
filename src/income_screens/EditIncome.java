@@ -213,7 +213,7 @@ public class EditIncome {
 				AlertMessages.showAlert("Please select a new income date.");
 				return false;
 			}
-			
+			//updates selectedIncome with newly entered info
 			selectedIncome.setAmount(amount);
 			selectedIncome.setDate(date);
 			//creates incomeDB object 

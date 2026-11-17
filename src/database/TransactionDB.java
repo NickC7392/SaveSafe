@@ -44,7 +44,7 @@ public class TransactionDB {
 		
 		
 	}
-	
+	//used for updating an existing transaction record
 	public void updateTransaction(Transaction transaction) throws SQLException {
 		
 		//sql statement for updating transaction record (using transactionID)
@@ -70,7 +70,7 @@ public class TransactionDB {
 		db.close();
 		
 	}
-	
+	//used for retrieving all transaction records from DB for viewing in transactionField table
 	public ArrayList<Transaction> getAllTransaction() throws SQLException {
 		
 		//ArrayList to store transaction records
@@ -112,6 +112,22 @@ public class TransactionDB {
 		
 		
 		
+	}
+	//used for deleting selected transaction record from transactionTable
+	public void deleteTransaction(int transactionID) throws SQLException {
+		
+		//sql statement for deleting transaction record
+		String sql = "DELETE FROM transactions WHERE transaction_id = ?";
+		//prepares sql query
+		PreparedStatement statement = db.getConnection().prepareStatement(sql);
+		//sets transactionID to placeholder
+		statement.setInt(1, transactionID);
+		statement.executeUpdate(); //since DELETE removes record use .executeUpdaye()
+		//close statement
+		statement.close();
+		//close db connection
+		db.close();
+
 	}
 	
 
