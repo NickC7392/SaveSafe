@@ -173,7 +173,7 @@ public class AddIncome {
 		return layout;	
 	}
 	
-	//method to make 
+	//method to make returnhome button accessible to application class for screen switching
 	public Button getReturnHome() {
 		return returnHome;
 	}

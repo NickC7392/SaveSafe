@@ -78,6 +78,7 @@ public class TransactionDB {
 		
 		//sql statement for retreiving transaction records
 		//ORDER BY transaction_id DESC so that newest transaction record is at top of table
+		//JOIN allows retrieval of category names through category_id
 		String sql = "SELECT * FROM transactions JOIN category USING (category_id) ORDER BY transaction_id DESC";
 		
 		//prepares sql query

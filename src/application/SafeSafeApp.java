@@ -1,6 +1,7 @@
 package application;
 
 import UserFeedback.AlertMessages;
+
 import home_screen.MainMenu;
 import income_screens.AddIncome;
 import income_screens.EditIncome;
@@ -10,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import objects.Income;
 import objects.Transaction;
+import savingGoal_screens.SetSavingsGoal;
 import transaction_screens.AddTransaction;
 import transaction_screens.EditTransaction;
 import transaction_screens.ViewTransaction;
@@ -27,6 +29,7 @@ public class SafeSafeApp extends Application{
 		AddTransaction addTransaction = new AddTransaction();
 		ViewTransaction viewTransaction = new ViewTransaction();
 		EditTransaction editTransaction = new EditTransaction();
+		SetSavingsGoal setsavings = new SetSavingsGoal();
 
 		
 		//uses getLayout method from MainMenu class to return its pane
@@ -141,8 +144,17 @@ public class SafeSafeApp extends Application{
 			}
 		});
 		
+		//####################### SAVINGSGOAL SCREENS NAVIGATION ################################//
 		
+		//SetSavings button in MainMenu; MainMenu -> SetSavingsGoal
+		main.getSetSavings().setOnAction(e -> {
+			scene.setRoot(setsavings.getLayout());
+		});
 		
+		//ReturnHome button in SetSavingsGoal; SetSavingsGoal -> MainMenu
+		setsavings.getReturnHome().setOnAction(e -> {
+			scene.setRoot(main.getLayout());
+		});
 		
 		//sets scene to be displayed inside stage
 		stage.setScene(scene);

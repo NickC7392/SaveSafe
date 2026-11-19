@@ -26,7 +26,7 @@ public class AddTransaction {
 	private Label pageName;
 	private Label pageInstruction;
 	private Label transactionAmount;
-	private Label dateReceived;
+	private Label dateOfTransaction;
 	private Label transactionDescription;
 	private Label dollarSign;
 	private Label category;
@@ -114,11 +114,11 @@ public class AddTransaction {
 							"-fx-text-fill: BLACK;");
 		
 		//Date received label
-		dateReceived = new Label("Date Received:");
+		dateOfTransaction = new Label("Date of Transaction:");
 		//Styling
-		dateReceived.setLayoutX(650); //x coordinate
-		dateReceived.setLayoutY(250); //y coordinate
-		dateReceived.setStyle("-fx-font-size: 25px;" +
+		dateOfTransaction.setLayoutX(650); //x coordinate
+		dateOfTransaction.setLayoutY(250); //y coordinate
+		dateOfTransaction.setStyle("-fx-font-size: 25px;" +
 							  "-fx-text-fill: DARKSEAGREEN;");
 		
 		//Date picker
@@ -212,7 +212,7 @@ public class AddTransaction {
 		
 		layout.getChildren().addAll(pageTitle, pageName, pageInstruction, transactionAmount,
 									separator, transactionField, transactionDate, saveTransaction,
-									returnHome, dateReceived, description, transactionDescription,
+									returnHome, dateOfTransaction, description, transactionDescription,
 									transactionCategory, dollarSign, category);
 		
 		
@@ -246,7 +246,7 @@ public class AddTransaction {
 			//checks if amount is greater than 0
 			if(amount.compareTo(BigDecimal.ZERO) <= 0) {
 				//pop up for user feedback
-				AlertMessages.showAlert("Transaction amount must be greater than $0.00.");
+				AlertMessages.showAlert("Amount must be greater than $0.00.");
 				return;
 			}
 			//gets selected category from dropdown
@@ -254,12 +254,12 @@ public class AddTransaction {
 			//checks to see if category was selected
 			if(category == null) {
 				//pop up for user feedback
-				AlertMessages.showAlert("Please seleect a transaction category.");
+				AlertMessages.showAlert("Please select a transaction category.");
 				return;
 			}
 			//gets categoryID based on dropdown (each category has unique ID in DB)
 			int categoryID = transactionCategory.getSelectionModel().getSelectedIndex() + 1; //+1 since comboBox starts at index 0
-			//optional description
+			//optional description //trims off unwanted space
 			String transactionDescription = description.getText().trim();
 			//sets description to null if left empty (since optional)
 			if(transactionDescription.isEmpty()) {

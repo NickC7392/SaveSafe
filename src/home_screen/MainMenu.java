@@ -183,5 +183,11 @@ public class MainMenu {
 	public Button getViewTransaction() {
 		return viewTransaction;
 	}
+	
+	//make Set Savings button accessible to application class for screen switching
+	//MainMenu -> SetSavings
+	public Button getSetSavings() {
+		return setSavings;
+	}
 
 }

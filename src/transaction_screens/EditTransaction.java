@@ -256,7 +256,7 @@ public class EditTransaction {
 			LocalDate date = transactionDate.getValue();
 			//retrieves selected category fromn comboBox
 			int categoryID = transactionCategory.getSelectionModel().getSelectedIndex() + 1;
-			//retrieves selected description
+			//retrieves selected description and trims off unwanted space
 			String description = this.description.getText().trim();
 			
 			//checks if transaction amount is greater than 0
@@ -274,10 +274,11 @@ public class EditTransaction {
 				AlertMessages.showAlert("Please select a new transaction category.");
 				return false;
 			}
-			//checks if description is empty
+			//checks for null or empty string description
 			if(description.isEmpty()) {
 				description = null;
 			}
+				
 			//updates selectedTransaction with newly entered info
 			selectedTransaction.setAmount(amount);
 			selectedTransaction.setDate(date);
