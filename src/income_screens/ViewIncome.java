@@ -163,13 +163,13 @@ public class ViewIncome {
 	}
 	
 	//make returnHome button accessible to application class for screen switching
-	//ViewIncome -> MainMenu navigation
+	//ViewIncome -> MainMenu 
 	public Button getReturnHome() {
 		return returnHome;
 	}
 	
 	//makes editIncome button accessible to application class for screen switching
-	//ViewIncome -> EditIncome navigation
+	//ViewIncome -> EditIncome 
 	public Button getEditButton() {
 		return editIncome;
 	}

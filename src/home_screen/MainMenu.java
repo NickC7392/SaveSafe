@@ -101,7 +101,7 @@ public class MainMenu {
 		//View Buttons
 		viewIncome = new Button("View Income");
 		viewTransaction = new Button("View Transactions");
-		viewSavings = new Button("View Savings");
+		viewSavings = new Button("View Savings Goals");
 		financialSummary = new Button("Financial Summary");
 		spendingByCategory = new Button("Spending by Category");
 		
@@ -188,6 +188,12 @@ public class MainMenu {
 	//MainMenu -> SetSavings
 	public Button getSetSavings() {
 		return setSavings;
+	}
+	
+	//make View Savings button accessible to application class for screen switching
+	//MainMenu -> ViewSavingsGoal
+	public Button getViewSavings() {
+		return viewSavings;
 	}
 
 }
